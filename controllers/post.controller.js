@@ -4,15 +4,15 @@ exports.index = function(req, res, next){
     Post.find({}, function(err, posts){
         if(err) return next(err);
         res.send(posts);
-    })
-}
+    });
+};
 
 exports.show = function(req, res, next){
     Post.findById(req.params.id, function(err, post){
         if(err) return next(err);
         res.send(post);
-    })
-}
+    });
+};
 
 exports.create  = function (req, res, next) {
     let post = Post({
@@ -21,9 +21,9 @@ exports.create  = function (req, res, next) {
     });
 
     post.save(function(err){
-        if(err) return next(err)
+        if(err) return next(err);
         res.send('post saved successfully');
-    })
+    });
 };
 
 exports.update = function(req, res, next){
