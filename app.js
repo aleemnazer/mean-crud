@@ -7,9 +7,9 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
-var postsRouter = require('./routes/posts')
+var postsRouter = require('./routes/posts');
 
-mongoose.connect('mongodb://127.0.0.1:27017/blog')
+mongoose.connect('mongodb://127.0.0.1:27017/blog', { useNewUrlParser: true});
 var app = express();
 
 // view engine setup
