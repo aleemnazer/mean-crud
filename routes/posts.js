@@ -4,32 +4,27 @@ var Post = require('../models/post.model');
 
 router.route('/')
   .get(function(req, res, next){
-      res.send(Post.getAll());
+      Post.getAll().then(posts => res.send(posts))
+      .catch(err => res.send(err));
     }
   )
   .post(function(req, res, next){
-    res.send(Post.create(req.body)); // calling class method here.
+    Post.create(req.body).then(post => res.send(post))
+    .catch(err => res.send(err));
   });
+
 router.route('/:id')
   .get(function(req, res, next){
-    post = Post.showDetails(req.params.id);
-    res.send(post);
-    // Post.findById(req.params.id, function(err, post){
-    //   if (err) return next(err);
-    //   res.send(post);
-    // });
+    Post.show(req.params.id).then(post => res.send(post))
+    .catch(err => res.send(err));
   })
   .put(function(req, res, next){
-    Post.findByIdAndUpdate(req.params.id, {$set: req.body}, function(err, post){
-        if(err) return next(err);
-        res.send('post updated successfully');
-    });
+    Post.update(req.params.id, req.body).then( post => res.send('successfully'))
+    .catch( err => res.send(err));
   })
   .delete(function(req, res, next){
-    Post.findByIdAndDelete(req.params.id, function(err, post){
-        if(err) return next(err);
-        res.send('Post deleted successfully');
-    });
+    Post.destroy(req.params.id).then( success => res.send('succesful'))
+    .catch(err => res.send(err));
   });
 
 module.exports = router;

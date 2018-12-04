@@ -8,28 +8,29 @@ var PostSchema = new Schema({
     views_count: { type: Number}
 });
 
-PostSchema.methods.greeting = function(){
+PostSchema.methods.greeting = function() {
     return 'hello from instance method '+ this.title;
 };
 
-PostSchema.statics.create = function(params){
-    post = new this(params);
-    post.save();
-    return post;
+PostSchema.statics.create = function(params) {
+    return new this(params).save();
 }
 
-PostSchema.static.showDetails = function showDetails(id){
-    this.findById(id, function(err, post){
-        if(err) return next(err);
-        return post;
-    });
+PostSchema.statics.show = function (id){
+    return this.findById(id).exec();
 }
 
-PostSchema.statics.getAll = function(){
-    this.find({}, function(err, posts){
-        if(err) return next(err);
-        return posts;
-    });
+PostSchema.statics.getAll = function() {
+    return this.find({}).exec();
 }
+
+PostSchema.statics.destroy = function(id) {
+    return this.findOneAndDelete(id).exec();
+}
+
+PostSchema.statics.update = function(id, params) {
+    return this.findByIdAndUpdate(id, { $set: params }).exec();
+}
+
 
 module.exports = mongoose.model('Post', PostSchema);
