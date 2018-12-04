@@ -37,16 +37,16 @@ PostSchema.statics.first = function(){
         if(true){
             resolve("retruning from one. ");
         }
-        reject("rejecting from first\n");
+        reject("rejecting from first. ");
     });
 }
 
 PostSchema.statics.second = function(){
     return new Promise(function(resolve, reject){
-        if(true){
+        if(false){
             resolve("retruning from second. ");
         }
-        reject("rejecting from second\n");
+        reject("rejecting from second. ");
     });
 }
 
@@ -56,7 +56,7 @@ PostSchema.statics.third = function(){
         if(true){
             resolve("retruning from third. ");
         }
-        reject("rejecting from third\n");
+        reject("rejecting from third. ");
     });
 }
 

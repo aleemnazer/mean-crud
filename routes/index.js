@@ -10,8 +10,8 @@ router.route('/')
       Post.second().then(function(message2){
         Post.third().then(function(message3){
           res.send(message1+message2+message3);
-        }).catch(err => res.send(err));
-    }).catch(err => res.send(err));
+        })
+    })
   }).catch(err => res.send(err));
 });
 
