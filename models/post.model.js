@@ -32,5 +32,32 @@ PostSchema.statics.update = function(id, params) {
     return this.findByIdAndUpdate(id, { $set: params }).exec();
 }
 
+PostSchema.statics.first = function(){
+    return new Promise(function(resolve, reject){
+        if(true){
+            resolve("retruning from one. ");
+        }
+        reject("rejecting from first\n");
+    });
+}
+
+PostSchema.statics.second = function(){
+    return new Promise(function(resolve, reject){
+        if(true){
+            resolve("retruning from second. ");
+        }
+        reject("rejecting from second\n");
+    });
+}
+
+
+PostSchema.statics.third = function(){
+    return new Promise(function(resolve, reject){
+        if(true){
+            resolve("retruning from third. ");
+        }
+        reject("rejecting from third\n");
+    });
+}
 
 module.exports = mongoose.model('Post', PostSchema);
