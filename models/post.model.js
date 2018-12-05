@@ -33,31 +33,38 @@ PostSchema.statics.update = function(id, params) {
 }
 
 PostSchema.statics.first = function(){
-    return new Promise(function(resolve, reject){
-        if(true){
-            resolve("retruning from one. ");
-        }
-        reject("rejecting from first. ");
+    return this.second().then(function(message){
+        return new Promise(function(resolve, reject){
+            if(true)
+                resolve("retruning from one. "+ message);
+            else
+                reject("rejecting from first. ");
+        });
+    }).catch(function(err){
+        return Promise.reject(err);
     });
 }
 
 PostSchema.statics.second = function(){
-    return new Promise(function(resolve, reject){
-        if(false){
-            resolve("retruning from second. ");
-        }
-        reject("rejecting from second. ");
+    return this.third().then(function(message){
+        return new Promise(function(resolve, reject){
+        if(false)
+                resolve("retruning from second. "+message);
+        else
+            reject("rejecting from second. ");
+        });
+    }).catch(function(err){
+        return Promise.reject(err);
     });
 }
 
-
 PostSchema.statics.third = function(){
     return new Promise(function(resolve, reject){
-        if(true){
+        if(false)
             resolve("retruning from third. ");
-        }
-        reject("rejecting from third. ");
-    });
+        else
+            reject("rejecting from third. ");
+        });
 }
 
 module.exports = mongoose.model('Post', PostSchema);
