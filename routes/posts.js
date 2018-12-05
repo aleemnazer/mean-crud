@@ -1,13 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var Post = require('../models/post.model');
+const passport = require('../passport');
+
+router.get('/',  passport.authenticate('local', { session: false }),
+  function(req, res, next){
+    headers = req.headers;
+    user = req.user;
+    Post.getAll()
+    .then(function(posts){
+       res.send(posts)
+    })
+    .catch(err => res.send(err));
+  }
+)
 
 router.route('/')
-  .get(function(req, res, next){
-      Post.getAll().then(posts => res.send(posts))
-      .catch(err => res.send(err));
-    }
-  )
   .post(function(req, res, next){
     Post.create(req.body).then(post => res.send(post))
     .catch(err => res.send(err));

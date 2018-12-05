@@ -24,7 +24,7 @@ router.post('/signup',
 router.post('/login',
  passport.authenticate('local', { failureRedirect: '/err' }),
   function(req, res, next) {
-    res.send(req.user);
+    res.send(req.user.id);
 });
 
 module.exports = router;
