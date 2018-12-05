@@ -6,11 +6,18 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
+var session =  require('express-session');
+mongoose.connect('mongodb://127.0.0.1:27017/blog', { useNewUrlParser: true});
+var app = express();
+const passport = require('./passport');
 var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
 
-mongoose.connect('mongodb://127.0.0.1:27017/blog', { useNewUrlParser: true});
-var app = express();
+app.use(session({
+  secret: 'secret',
+  saveUninitialized: false,
+  resave: false
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
-
+app.use(passport.initialize());
 app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 
