@@ -22,9 +22,13 @@ router.post('/signup',
 });
 
 router.post('/login',
- passport.authenticate('local', { failureRedirect: '/err' }),
   function(req, res, next) {
-    res.send(req.user.id);
+    User.findOne({ username: req.body.username }, function (err, user) {
+      verified = user.verifyPassword(req.body.password);
+      if (err || !verified) { return next(err); }
+      user.setToken();
+      res.send(user.getToken());
+    });
 });
 
 module.exports = router;

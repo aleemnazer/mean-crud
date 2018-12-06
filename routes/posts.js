@@ -3,10 +3,8 @@ var router = express.Router();
 var Post = require('../models/post.model');
 const passport = require('../passport');
 
-router.get('/',  passport.authenticate('local', { session: false }),
+router.get('/', passport.authenticate('bearer', { session: false }),
   function(req, res, next){
-    headers = req.headers;
-    user = req.user;
     Post.getAll()
     .then(function(posts){
        res.send(posts)
@@ -15,8 +13,7 @@ router.get('/',  passport.authenticate('local', { session: false }),
   }
 )
 
-router.route('/')
-  .post(function(req, res, next){
+router.post("/", passport.authenticate('bearer', { session: false }), function(req, res, next){
     Post.create(req.body).then(post => res.send(post))
     .catch(err => res.send(err));
   });
