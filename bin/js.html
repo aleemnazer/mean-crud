@@ -1,0 +1,17 @@
+<html ng-app="myModule">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+        <script src="./code.js"></script>
+    </head>
+    <body>
+        <div ng-controller="myController">
+            <input type="text" ng-model="first_binding"/>
+            <h3> hello {{ first_binding }} !</h3>
+            <ol>
+                <li data-ng-repeat="cust in customers "> {{cust.name }} - {{cust.city}}</li>
+            </ol>
+            <input type="button" ng-click="add(first_binding)", value="Add One more"> 
+            <input type="button" ng-click="remove()", value="Add One more"> 
+        </div>
+    </body>
+</html>

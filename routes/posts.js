@@ -3,9 +3,9 @@ var router = express.Router();
 var Post = require('../models/post.model');
 const passport = require('../passport');
 
-router.get('/', passport.authenticate('bearer', { session: false }),
+router.get('/',
   function(req, res, next){
-    Post.getAll()
+    Post.find().limit(20)
     .then(function(posts){
        res.send(posts)
     })
